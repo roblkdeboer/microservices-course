@@ -16,6 +16,7 @@ const PostList = () => {
     fetchPosts();
   }, []);
 
+  // Post ID comes from the post object which is returned when a post is retreived
   const renderedPosts = Object.values(posts).map((post) => {
     return (
       <div className="card my-3" style={{ width: '30%' }} key={post.id}>
