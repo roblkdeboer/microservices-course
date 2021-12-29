@@ -4,7 +4,7 @@ import axios from 'axios';
 const CommentCreate = ({ postId }) => {
   const [content, setContent] = useState('');
 
-  const submitHandler = async (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
@@ -16,13 +16,13 @@ const CommentCreate = ({ postId }) => {
 
   return (
     <div>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>New Comment</label>
           <input
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="form-control mt-1"
+            className="form-control my-1"
           />
         </div>
         <button className="btn btn-primary my-3">Submit</button>

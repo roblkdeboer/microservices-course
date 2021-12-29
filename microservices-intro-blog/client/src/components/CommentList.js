@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const CommentList = ({ postId }) => {
   const [comments, setComments] = useState([]);
@@ -9,7 +9,6 @@ const CommentList = ({ postId }) => {
       `http://localhost:4001/posts/${postId}/comments`
     );
 
-    // Comments are returned from the endpoint and assigned to comments variable
     setComments(res.data);
   };
 
