@@ -1,5 +1,7 @@
 # Specify base image
 FROM node:lts-alpine
+
+ENV CI=true
 # Set working directory
 WORKDIR /app
 # Copy over package.json
