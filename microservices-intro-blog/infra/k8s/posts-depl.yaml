@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  # Number pods to create
+  replicas: 1
+  # Look at pods with a label of app: posts
+  selector:
+    matchLabels:
+      app: posts
+  # Specify the configuration of a pod that we want to be created by the deployment
+  template:
+    metadata:
+      labels:
+        app: posts
+    # Describe the configuration options for the pod we are trying to make
+    spec:
+      containers:
+        - name: posts
+          image: roblkdeboer/posts:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+spec:
+  selector:
+    app: posts
+  type: ClusterIP
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

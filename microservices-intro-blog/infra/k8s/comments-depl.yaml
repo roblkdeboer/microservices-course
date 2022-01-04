@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments-depl
+spec:
+  # Number pods to create
+  replicas: 1
+  # Look at pods with a label of app: comments
+  selector:
+    matchLabels:
+      app: comments
+  # Specify the configuration of a pod that we want to be created by the deployment
+  template:
+    metadata:
+      labels:
+        app: comments
+    # Describe the configuration options for the pod we are trying to make
+    spec:
+      containers:
+        - name: comments
+          image: roblkdeboer/comments:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-srv
+spec:
+  selector:
+    app: comments
+  type: ClusterIP
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001
+      targetPort: 4001
