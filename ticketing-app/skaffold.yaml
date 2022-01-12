@@ -1,0 +1,22 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  # Different config files to load into the cluster
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: roblkdeboer/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        # How to handle any changes that happen in the directory
+        manual:
+          # All ts file changes
+          - src: 'src/**/*.ts'
+            # Where to sync in the running container - just put it in the corresponding path
+            dest: .
