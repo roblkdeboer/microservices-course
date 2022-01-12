@@ -11,7 +11,7 @@ spec:
     - host: ticketing.dev
       http:
         paths:
-          # Makes a request to any user api, send it tot he listed backend auth-srv created in the auth-deply config
+          # Makes a request to any user api, send it tot he listed backend auth-srv created in the auth-deply configd
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:

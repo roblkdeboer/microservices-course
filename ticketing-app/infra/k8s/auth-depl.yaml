@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
+          # image: us.gcr.io/braided-carport-338016/auth
           image: roblkdeboer/auth
 ---
 apiVersion: v1

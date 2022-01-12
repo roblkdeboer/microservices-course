@@ -8,8 +8,11 @@ deploy:
 build:
   local:
     push: false
+  # googleCloudBuild:
+  #   projectId: braided-carport-338016
   artifacts:
-    - image: roblkdeboer/auth
+    # - image: us.gcr.io/braided-carport-338016/auth
+      - image: roblkdeboer/auth 
       context: auth
       docker:
         dockerfile: Dockerfile
