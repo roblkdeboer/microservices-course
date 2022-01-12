@@ -24,7 +24,7 @@ Example commands:
 cd client
 npm install
 ```
-## Run
+## Running locally
 
 Change directory to each of six services listed above and run the servers to run in dev mode on nodemon
 
@@ -33,3 +33,15 @@ Example commands:
 cd client
 npm start
 ```
+
+## Running with Docker and Kubernetes
+
+Each service has been containerised using the Dockerfile and each container is then orchestrated using Kubernetes/Skaffold.
+
+In order to achieve this:
+
+1. Build the docker image for each service
+2. Upload each image to dockerhub
+3. Configure the deployment file for each service
+4. Configure the skaffold file for deployment
+5. Run skaffold build command
