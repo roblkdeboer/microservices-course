@@ -12,7 +12,7 @@ build:
   #   projectId: braided-carport-338016
   artifacts:
     # - image: us.gcr.io/braided-carport-338016/auth
-      - image: roblkdeboer/auth 
+    - image: roblkdeboer/auth
       context: auth
       docker:
         dockerfile: Dockerfile
