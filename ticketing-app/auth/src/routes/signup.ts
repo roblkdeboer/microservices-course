@@ -16,13 +16,16 @@ router.post(
   (req: Request, res: Response) => {
     const errors = validationResult(req);
 
+    // Middleware is called
     if (!errors.isEmpty()) {
-      return res.status(400).send(errors.array());
+      // Assigned to the message property of the err.  Middleware will display it
+      throw new Error('Invalid email or password');
     }
 
     const { email, password } = req.body;
 
     console.log('Creating a user');
+    throw new Error('Cannot connect to the database');
 
     res.send({});
   }
