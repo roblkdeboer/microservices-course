@@ -40,8 +40,7 @@ Each service has been containerised using the Dockerfile and each container is t
 
 In order to achieve this:
 
-1. Build the docker image for each service
-2. Upload each image to dockerhub
-3. Configure the deployment file for each service
-4. Configure the skaffold file for deployment
-5. Run skaffold build command
+1. Configure the Dockerfile for each service
+2. Configure the deployment file for each service
+3. Configure the skaffold file for deployment
+4. Run skaffold build command
