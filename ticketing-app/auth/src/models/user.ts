@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
 // An interface that describes the properties
 // that are required to create a new user
@@ -31,6 +32,19 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+// Anytime a document is saved, this function is executed (middleware)
+// Call done once all the work in the function is done
+userSchema.pre('save', async function (done) {
+  // Only attempt to hash the password if it has been modified
+  if (this.isModified('password')) {
+    const hashed = await Password.toHash(this.get('password'));
+    // Set password in user document with new hashed password
+    this.set('password', hashed);
+  }
+  done();
+});
+
 // Use the interface defined above.  Allows for type checking
 // How to add a function to a model in mongoose
 userSchema.statics.build = (attrs: UserAttrs) => {
