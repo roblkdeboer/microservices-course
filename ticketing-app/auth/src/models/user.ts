@@ -38,6 +38,14 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 };
 
 // Use the interface above to add type definitions to the build property
+// Pass in the UserDoc interface and returns a UserModel interface
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+
+const user = User.build({
+  email: 'test@test.com',
+  password: 'ae43123',
+});
+
+user.email;
 
 export { User };
