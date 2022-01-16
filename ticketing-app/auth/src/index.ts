@@ -2,6 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
 
 // Middleware
 import { errorHandler } from './middlewares/error-handler';
@@ -14,7 +15,15 @@ import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 
 const app = express();
+app.set('trust proxy', true);
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false,
+    // Require being on https
+    secure: true,
+  })
+);
 
 // User routes
 app.use(currentUserRouter);
