@@ -16,6 +16,14 @@ spec:
         - name: auth
           # image: us.gcr.io/braided-carport-338016/auth
           image: roblkdeboer/auth
+          # Create secrets and assign them to specific pods
+          # kubectl create secret generic jwt-secret --from-literal=JWT_KEY=example_key
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service

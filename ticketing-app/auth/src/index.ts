@@ -47,6 +47,10 @@ app.use(errorHandler);
 // Function that tries to connect to DB, if it works then it listens on the port
 // If not, it throws an error
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY must be defined');
+  }
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
     console.log('Connected to MongoDB');
