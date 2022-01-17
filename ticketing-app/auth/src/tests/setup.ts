@@ -26,6 +26,6 @@ beforeEach(async () => {
 
 // Run after all tests to spin down the mongo db
 afterAll(async () => {
-  await mongo.stop();
   await mongoose.connection.close();
+  await mongo.stop();
 });
