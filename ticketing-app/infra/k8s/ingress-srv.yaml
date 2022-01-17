@@ -11,11 +11,19 @@ spec:
     - host: ticketing.dev
       http:
         paths:
-          # Makes a request to any user api, send it tot he listed backend auth-srv created in the auth-deply configd
+          # Makes a request to any user api, send it to the listed backend auth-srv created in the auth-deply configd
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: auth-srv
+                port:
+                  number: 3000
+          # Acts as a catch all and should be put last as it runs through each service sequentially.  Client service should be listed at the bottom
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
                 port:
                   number: 3000

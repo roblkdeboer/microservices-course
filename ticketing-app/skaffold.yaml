@@ -23,3 +23,14 @@ build:
           - src: 'src/**/*.ts'
             # Where to sync in the running container - just put it in the corresponding path
             dest: .
+    - image: roblkdeboer/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        # How to handle any changes that happen in the directory
+        manual:
+          # All ts file changes
+          - src: '**/*.js'
+            # Where to sync in the running container - just put it in the corresponding path
+            dest: .
