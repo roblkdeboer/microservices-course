@@ -40,8 +40,12 @@ Each service has been containerised using the Dockerfile and each container is t
 
 In order to achieve this:
 
-1. Configure the Dockerfile for each service
+1. Configure the Dockerfile for each service and build the image
 2. Push to docker hub
+```
+docker build -t roblkdeboer/client .
+docker push roblkdeboer/client
+```
 3. Configure the deployment file for each service
 4. Configure the skaffold file for deployment
-5. Run skaffold build command
+5. Run ```skaffold build``` command
