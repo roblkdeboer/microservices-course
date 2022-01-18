@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import Router from 'next/router';
 
 // Custom hooks
 import useRequest from '../../hooks/use-request';
@@ -12,16 +12,17 @@ const signup = () => {
     url: '/api/users/signup',
     method: 'post',
     body: { email, password },
+    onSuccess: () => Router.push('/'),
   });
 
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    doRequest();
+    await doRequest();
   };
 
   return (
-    <div className="container">
+    <div className="container mt-3">
       <form onSubmit={submitHandler}>
         <h1>Sign Up</h1>
         <div className="form-group">
