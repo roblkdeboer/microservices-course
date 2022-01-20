@@ -12,10 +12,12 @@ const LandingPage = ({ currentUser }) => {
 // Executed when the page first loads
 // Executed on the server when page is refreshed, accessed via a link from a different domain or typed into the search bar
 // Executed on the client when navigating between pages within the app
+// Information fetching just for an individual page
 LandingPage.getInitialProps = async (context) => {
   // Check if the user is signed in/authenticated
   //   Give us axios instance
-  const { data } = await buildClient(context).get('/api/users/currentuser');
+  const client = buildClient(context);
+  const { data } = await client.get('/api/users/currentuser');
   return data;
 };
 
