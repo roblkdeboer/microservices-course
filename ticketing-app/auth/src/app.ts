@@ -4,8 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
 // Middleware
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { errorHandler, NotFoundError } from '@robtickets/common';
 
 // Routers
 import { currentUserRouter } from './routes/current-user';
