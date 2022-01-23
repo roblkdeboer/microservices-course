@@ -7,6 +7,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@robtickets/common';
 
 // Routers
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -18,6 +19,9 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
+
+// Ticket routers
+app.use(createTicketRouter);
 
 // Any non specified endpoints will return this error
 app.all('*', async () => {
