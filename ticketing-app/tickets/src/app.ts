@@ -4,7 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
 // Middleware
-import { errorHandler, NotFoundError } from '@robtickets/common';
+import { errorHandler, NotFoundError, currentUser } from '@robtickets/common';
 
 // Routers
 import { createTicketRouter } from './routes/new';
@@ -19,6 +19,10 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   })
 );
+
+// Middleware
+// If user is authenticated, currentUser will be set
+app.use(currentUser);
 
 // Ticket routers
 app.use(createTicketRouter);
