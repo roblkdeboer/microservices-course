@@ -1,14 +1,16 @@
 import request from 'supertest';
 import { app } from '../../app';
+import mongoosee from 'mongoose';
 
 it('returns a 404 if the ticket is not found', async () => {
+  const id = new mongoosee.Types.ObjectId().toHexString();
   const response = await request(app)
-    .get('/api/tickets/31dadda')
+    .get(`/api/tickets/${id}`)
     .send({})
     .expect(404);
 });
 
-it('returns a ticket if the ticket is  found', async () => {
+it('returns a ticket if the ticket is found', async () => {
   const title = 'concert';
   const price = 20;
 

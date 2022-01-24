@@ -8,6 +8,8 @@ import { errorHandler, NotFoundError, currentUser } from '@robtickets/common';
 
 // Routers
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
+import { indexTicketRouter } from './routes';
 
 const app = express();
 app.set('trust proxy', true);
@@ -26,6 +28,8 @@ app.use(currentUser);
 
 // Ticket routers
 app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(indexTicketRouter);
 
 // Any non specified endpoints will return this error
 app.all('*', async () => {
