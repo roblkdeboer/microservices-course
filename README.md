@@ -6,10 +6,20 @@ I will be going through this course to learn more about microservices and devops
 
 Some technologies and frameworks that have been covered:
 
+### Frontend
 * React 
+* Next.js
+
+### Backend
 * Node.js
+* Typescript
+* NATS
+* MongoDB
+
+### Deployment and Testing
 * Kubernetes
 * Docker
-* Typescript
+* NPM Publishing
+* Jest and Supertest
 
-Updated 08/01/2022
+Updated 28/01/2022
