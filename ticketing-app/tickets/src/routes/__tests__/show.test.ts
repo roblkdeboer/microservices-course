@@ -1,9 +1,9 @@
 import request from 'supertest';
 import { app } from '../../app';
-import mongoosee from 'mongoose';
+import mongoose from 'mongoose';
 
 it('returns a 404 if the ticket is not found', async () => {
-  const id = new mongoosee.Types.ObjectId().toHexString();
+  const id = new mongoose.Types.ObjectId().toHexString();
   const response = await request(app)
     .get(`/api/tickets/${id}`)
     .send({})

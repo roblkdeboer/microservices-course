@@ -8,6 +8,9 @@ declare global {
   var signin: () => string[];
 }
 
+// Mock file for NATS and redirect it ot the mocks folder
+jest.mock('../nats-wrapper');
+
 let mongo: any;
 
 // Run before all the tests to connect to the in-memory mongodb
@@ -23,6 +26,7 @@ beforeAll(async () => {
 
 // Run before each of our tests to reset all the data in the DB
 beforeEach(async () => {
+  jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
 
   for (let collection of collections) {
