@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@robtickets/common';
+import { TicketDoc } from './ticket';
 
 // An interface that describes the properties
 // that are required to create a new order
@@ -7,6 +8,7 @@ interface OrderAttrs {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
+  //   Interface defined in ticket model
   ticket: TicketDoc;
 }
 
@@ -16,6 +18,7 @@ interface OrderDoc extends mongoose.Document {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
+  //   Interface defined in ticket model
   ticket: TicketDoc;
 }
 
