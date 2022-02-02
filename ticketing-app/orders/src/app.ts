@@ -7,6 +7,10 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@robtickets/common';
 
 // Routers
+import { showOrderRouter } from './routes/show';
+import { indexOrderRouter } from './routes';
+import { newOrderRouter } from './routes/new';
+import { deleteOrderRouter } from './routes/delete';
 
 const app = express();
 app.set('trust proxy', true);
@@ -24,10 +28,10 @@ app.use(
 app.use(currentUser);
 
 // Ticket routers
-// app.use();
-// app.use();
-// app.use();
-// app.use();
+app.use(showOrderRouter);
+app.use(indexOrderRouter);
+app.use(deleteOrderRouter);
+app.use(newOrderRouter);
 
 // Any non specified endpoints will return this error
 app.all('*', async () => {
