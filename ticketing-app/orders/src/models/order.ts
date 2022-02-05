@@ -71,6 +71,6 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 
 // Use the interface above to add type definitions to the build property
 // Pass in the OrderDoc interface and returns a OrderModel interface
-const Order = mongoose.model<OrderDoc, OrderModel>('Order, orderSchema');
+const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
 
 export { Order };
