@@ -22,6 +22,7 @@ interface OrderDoc extends mongoose.Document {
   expiresAt: Date;
   //   Interface defined in ticket model
   ticket: TicketDoc;
+  version: number;
 }
 
 // An interface that describes the properties
