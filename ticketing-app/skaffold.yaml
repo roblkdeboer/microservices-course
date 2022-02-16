@@ -56,3 +56,11 @@ build:
           - src: 'src/**/*.ts'
             # Where to sync in the running container - just put it in the corresponding path
             dest: .
+    - image: roblkdeboer/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
