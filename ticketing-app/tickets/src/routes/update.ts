@@ -5,6 +5,7 @@ import {
   validateRequest,
   requireAuth,
   NotAuthorizedError,
+  BadRequestError,
 } from '@robtickets/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -28,6 +29,11 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    // Prevent edits of reserved tickets
+    if (ticket.orderId) {
+      throw new BadRequestError('Cannot edit a reserved ticket');
     }
 
     if (ticket.userId !== req.currentUser!.id) {
