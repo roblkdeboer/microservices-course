@@ -3,6 +3,7 @@ import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
 import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
 import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
+import { ExpirationCompleteListener } from './events/listeners/expiration-complete-listener';
 
 // Function that tries to connect to DB, if it works then it listens on the port
 // If not, it throws an error
@@ -44,6 +45,7 @@ const start = async () => {
   // New instances of these listeners
   new TicketCreatedListener(natsWrapper.client).listen();
   new TicketUpdatedListener(natsWrapper.client).listen();
+  new ExpirationCompleteListener(natsWrapper.client).listen();
 
   await mongoose.connect(process.env.MONGO_URI);
   console.log('Connected to Orders MongoDB');
