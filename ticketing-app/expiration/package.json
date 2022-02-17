@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@robtickets/common": "^2.1.2",
+    "@robtickets/common": "^2.2.0",
     "@types/bull": "^3.15.8",
     "bull": "^4.5.5",
     "node-nats-streaming": "^0.3.2",
