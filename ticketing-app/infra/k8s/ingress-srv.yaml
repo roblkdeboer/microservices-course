@@ -12,6 +12,13 @@ spec:
       http:
         paths:
           # Makes a request to any user api, send it to the listed backend auth-srv created in the auth-deply configd
+          - path: /api/payments/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payments-srv
+                port:
+                  number: 3000
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
