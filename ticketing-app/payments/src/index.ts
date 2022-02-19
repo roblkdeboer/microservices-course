@@ -43,7 +43,7 @@ const start = async () => {
     // Initialize listeners
 
     await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to Tickets MongoDB');
+    console.log('Connected to Payments MongoDB');
   } catch (err) {
     console.log(err);
   }
