@@ -7,6 +7,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@robtickets/common';
 
 // Routers
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -23,7 +24,8 @@ app.use(
 // If user is authenticated, currentUser will be set
 app.use(currentUser);
 
-// Ticket routers
+// Payment routers
+app.use(createChargeRouter);
 
 // Any non specified endpoints will return this error
 app.all('*', async () => {
