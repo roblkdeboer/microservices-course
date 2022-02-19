@@ -5,7 +5,7 @@ import { app } from '../app';
 import jwt from 'jsonwebtoken';
 
 declare global {
-  var signin: () => string[];
+  var signin: (id?: string) => string[];
 }
 
 // Mock file for NATS and redirect it ot the mocks folder
@@ -40,10 +40,11 @@ afterAll(async () => {
   await mongo.stop();
 });
 
-global.signin = () => {
+global.signin = (id?: string) => {
   // Build a JWT payload (id, email)
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    // If optional ID is passed, use it, if not, generate ID
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com',
   };
 
