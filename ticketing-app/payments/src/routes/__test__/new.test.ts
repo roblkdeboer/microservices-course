@@ -2,6 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 import { Order } from '../../models/order';
+import { Payment } from '../../models/payment';
 import { OrderStatus } from '@robtickets/common';
 import { stripe } from '../../stripe';
 
@@ -58,7 +59,7 @@ it('returns a 400 when paying for a cancelled order', async () => {
     .expect(400);
 });
 
-it('returns a 204 with valid inputs', async () => {
+it('returns a 201 with valid inputs', async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
 
   const order = Order.build({
@@ -78,7 +79,19 @@ it('returns a 204 with valid inputs', async () => {
 
   // Options come body sent to new payment route
   const chargeOptions = (stripe.charges.create as jest.Mock).mock.calls[0][0];
+  const chargeResult = await (stripe.charges.create as jest.Mock).mock
+    .results[0].value;
+
   expect(chargeOptions.source).toEqual('tok_visa');
   expect(chargeOptions.amount).toEqual(20 * 100);
   expect(chargeOptions.currency).toEqual('usd');
+
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: chargeResult.id,
+  });
+
+  expect(payment).toBeDefined();
+  expect(payment!.orderId).toEqual(order.id);
+  expect(payment!.stripeId).toEqual(chargeResult.id);
 });
