@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
-import { OrderCancelleddListener } from './events/listeners/order-cancelled-listener';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 import { OrdercreatedListener } from './events/listeners/order-created-listener';
 
 // Function that tries to connect to DB, if it works then it listens on the port
@@ -44,7 +44,7 @@ const start = async () => {
 
     // Initialize listeners
     new OrdercreatedListener(natsWrapper.client).listen();
-    new OrderCancelleddListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to Payments MongoDB');
