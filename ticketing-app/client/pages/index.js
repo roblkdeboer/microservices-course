@@ -5,8 +5,8 @@ const LandingPage = ({ currentUser, tickets }) => {
   const ticketList = tickets.map((ticket) => {
     return (
       <tr key={ticket.id}>
-        <td>{ticket.title}</td>
-        <td>{ticket.price}</td>
+        <td className="align-middle">{ticket.title}</td>
+        <td className="align-middle">{ticket.price}</td>
         <td>
           <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
             <a className="nav-link">View</a>
