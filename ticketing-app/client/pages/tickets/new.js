@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 
 // Custom hooks
 import useRequest from '../../hooks/use-request';
@@ -22,7 +23,7 @@ const newTicket = () => {
     url: '/api/tickets',
     method: 'post',
     body: { title, price },
-    onSuccess: (ticket) => console.log(ticket),
+    onSuccess: () => Router.push('/'),
   });
 
   const submitHandler = async (event) => {
