@@ -2,8 +2,11 @@
 
 name: tests-tickets
 
-# Run this workflow whenever a PR is created
-on: pull_request
+# Run this workflow whenever a PR is created and the files changed are in the tickets directory
+on:
+  pull_request:
+    paths:
+      - 'tickets/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
