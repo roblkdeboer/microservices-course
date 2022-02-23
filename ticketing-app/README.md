@@ -1,3 +1,0 @@
-# Background
-
-# Running the app
