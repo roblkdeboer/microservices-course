@@ -1,6 +1,6 @@
 # This is a workflow to trigger executing automated testing
 
-name: tests
+name: tests-auth
 
 # Run this workflow whenever a PR is created
 on:
