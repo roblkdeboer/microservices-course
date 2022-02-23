@@ -1,0 +1,15 @@
+# This is a workflow to trigger executing automated testing
+
+name: tests-auth
+
+# Run this workflow whenever a PR is created
+on:
+  pull_request
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd auth && npm install && npm run test:ci
