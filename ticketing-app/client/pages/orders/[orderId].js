@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
-
-// Custom hooks
+import Router from 'next/router';
 import useRequest from '../../hooks/use-request';
 
 const OrderShow = ({ order, currentUser }) => {
@@ -12,33 +11,29 @@ const OrderShow = ({ order, currentUser }) => {
     body: {
       orderId: order.id,
     },
-    onSuccess: (payment) => console.log(payment),
+    onSuccess: () => Router.push('/orders'),
   });
 
   useEffect(() => {
     const findTimeLeft = () => {
       const msLeft = new Date(order.expiresAt) - new Date();
-
       setTimeLeft(Math.round(msLeft / 1000));
     };
 
     findTimeLeft();
     const timerId = setInterval(findTimeLeft, 1000);
 
-    // Stop timer when navigating away from the component
     return () => {
       clearInterval(timerId);
     };
-    // Empty array means it will only run once, when the component first loads
   }, [order]);
 
   if (timeLeft < 0) {
-    return <div className="my-3">Order Expired</div>;
+    return <div>Order Expired</div>;
   }
 
   return (
-    <div className="my-3">
-      {errors}
+    <div>
       <div className="my-3">Time left to pay: {timeLeft} seconds</div>
       <div className="my-3">
         <StripeCheckout
@@ -47,13 +42,13 @@ const OrderShow = ({ order, currentUser }) => {
           amount={order.ticket.price * 100}
           email={currentUser.email}
         />
+        {errors}
       </div>
     </div>
   );
 };
 
 OrderShow.getInitialProps = async (context, client) => {
-  // orderId because that is what the file is called
   const { orderId } = context.query;
   const { data } = await client.get(`/api/orders/${orderId}`);
 
