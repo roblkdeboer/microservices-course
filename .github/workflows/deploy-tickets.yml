@@ -1,0 +1,28 @@
+name: deploy-tickets
+
+# To run when a PR is merged to master and the tickets file is change
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'tickets/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd tickets && docker build -t roblkdeboer/tickets .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push roblkdeboer/tickets
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      # Get connection credentials to reach into DO k8s cluster
+      - run: doctl kubernetes cluster kubeconfig save ticketing
+      # Restart tickets service
+      - run: kubectl rollout restart deployment tickets-depl
