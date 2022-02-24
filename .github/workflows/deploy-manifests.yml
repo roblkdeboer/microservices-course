@@ -1,4 +1,4 @@
-name: deploy-auth
+name: deploy-manifests
 
 # To run when a PR is merged to master and the auth file is change
 on:
@@ -6,23 +6,17 @@ on:
     branches:
       - master
     paths:
-      - 'auth/**'
+      - 'infra/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth && docker build -t roblkdeboer/auth .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push roblkdeboer/auth
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       # Get connection credentials to reach into DO k8s cluster
       - run: doctl kubernetes cluster kubeconfig save ticketing
-      # Restart authentication service
-      - run: kubectl rollout restart deployment auth-depl
+      # Apply all new config files to our cluster
+      - run: kubectl apply -f infra/k8s
