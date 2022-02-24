@@ -19,7 +19,8 @@ app.use(
   cookieSession({
     signed: false,
     // Require being on https when the env is not test
-    secure: process.env.NODE_ENV !== 'test',
+    // secure: process.env.NODE_ENV !== 'test',
+    secure: false,
   })
 );
 
