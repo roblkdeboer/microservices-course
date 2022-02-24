@@ -4,6 +4,7 @@ import { OrderCreatedListener } from './events/listeners/order-created-listener'
 // Function that tries to connect to DB, if it works then it listens on the port
 // If not, it throws an error
 const start = async () => {
+  console.log('Starting!');
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error('NATS_CLIENT_ID must be defined');
   }
